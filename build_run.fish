@@ -17,8 +17,8 @@ cargo component build --release
 popd
 
 wac compose example.wac -o output.wasm \
-    --dep example:cli=cli/target/wasm32-wasip1/release/cli.wasm \
     --dep example:name=name/target/wasm32-wasip1/release/virt.wasm \
-    --dep example:greeter=greeter/target/wasm32-wasip1/release/virt.wasm
+    --dep example:greeter=greeter/target/wasm32-wasip1/release/virt.wasm \
+    --dep example:cli=cli/target/wasm32-wasip1/release/cli.wasm
 
 wasmtime run --wasi cli=y --env NAME output.wasm
