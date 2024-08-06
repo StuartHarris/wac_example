@@ -6,7 +6,6 @@ use bindings::{wasi::cli::environment, Guest};
 struct Component;
 
 impl Guest for Component {
-    /// Say hello!
     fn name() -> String {
         environment::get_environment()
             .into_iter()
