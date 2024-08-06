@@ -1,0 +1,8 @@
+package example:greeter;
+
+world greeter {
+  /// Importing a 'name' function that returns the name to greet.
+  import name: func() -> string;
+  /// Exporting a 'greet' function that returns a greeting using the name.
+  export greet: func() -> string;
+}

@@ -1,0 +1,6 @@
+package example:name;
+
+world name {
+  import wasi:cli/environment@0.2.0;
+  export name: func() -> string;
+}

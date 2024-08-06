@@ -1,0 +1,5 @@
+package example:cli;
+
+world host {
+  import greet: func() -> string;
+}
