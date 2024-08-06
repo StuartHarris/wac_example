@@ -1,6 +1,25 @@
 # Example WebAssembly Component Model composition using `wac`
 
-Composition of 3 components.
+Composition...
+
+```wit
+package example:composition;
+
+let n = new example:name { ... };
+
+let g = new example:greeter {
+  name: n.name
+};
+
+let c = new example:cli {
+  greet: g.greet,
+  ...
+};
+
+export c.run;
+```
+
+... of 3 components:
 
 ### 1. `name`
 reads the `NAME` environment variable and returns it.
