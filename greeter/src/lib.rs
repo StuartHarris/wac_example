@@ -1,7 +1,6 @@
-#[allow(warnings)]
-mod bindings;
-
-use bindings::{name, Guest};
+wit_bindgen::generate!({
+    world: "greeter",
+});
 
 struct Component;
 
@@ -12,4 +11,4 @@ impl Guest for Component {
     }
 }
 
-bindings::export!(Component with_types_in bindings);
+export!(Component);

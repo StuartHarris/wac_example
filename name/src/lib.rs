@@ -1,13 +1,13 @@
-#[allow(warnings)]
-mod bindings;
-
-use bindings::{wasi::cli::environment, Guest};
+wit_bindgen::generate!({
+    world: "name",
+    generate_all,
+});
 
 struct Component;
 
 impl Guest for Component {
     fn name() -> String {
-        environment::get_environment()
+        wasi::cli::environment::get_environment()
             .into_iter()
             .find(|(k, _)| k == "NAME")
             .map(|(_, v)| v)
@@ -15,4 +15,4 @@ impl Guest for Component {
     }
 }
 
-bindings::export!(Component with_types_in bindings);
+export!(Component);

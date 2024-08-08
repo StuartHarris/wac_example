@@ -1,7 +1,6 @@
-#[allow(warnings)]
-mod bindings;
-
-use bindings::greet;
+wit_bindgen::generate!({
+    world: "host",
+});
 
 fn main() {
     println!("{}", greet());
