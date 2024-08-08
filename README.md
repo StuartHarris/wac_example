@@ -1,30 +1,21 @@
 # Example WebAssembly Component Model composition using `wac`
 
-Updated to use the `wasm32-wasip2` target in rust nightly.
+Demonstrates composing a `name` component and a `greeter` component with either:
 
-Composition...
+1. a `cli` component
+2. a `http` component
 
-```wit
-package example:composition;
+Updated to use the `wasm32-wasip2` target in Rust nightly.
 
-let n = new example:name { ... };
+## Setup
 
-let g = new example:greeter {
-  name: n.name,
-  ...
-};
+* Rust nightly — `rustup toolchain install nightly`
+* [wac](https://github.com/bytecodealliance/wac) — `cargo binstall wac-cli`
+* [wasmtime](https://github.com/bytecodealliance/wasmtime) — `brew install wasmtime`
 
-let c = new example:cli {
-  greet: g.greet,
-  ...
-};
+----
 
-export c.run;
-```
-
-... of 3 components:
-
-### 1. `name`
+### 1. The `name` component
 reads the `NAME` environment variable and returns it.
 ```wit
 world name {
@@ -45,7 +36,7 @@ impl Guest for Component {
 }
 ```
 
-### 2. `greeter`
+### 2. The `greeter` component
 calls into the `name` component and returns a greeting.
 
 ```wit
@@ -64,35 +55,32 @@ impl Guest for Component {
 }
 ```
 
-### 3. `cli`
-a `wasi:cli` component, which calls into the `greeter` component and prints the greeting.
-
-```wit
-world host {
-  import greet: func() -> string;
-}
-```
-
-```rust
-fn main() {
-    println!("{}", greet());
-}
-```
-
 ----
 
-## Setup
 
-* rust nightly — `rustup toolchain install nightly`
-* [wac](https://github.com/bytecodealliance/wac) — `cargo binstall wac-cli`
-* [wasmtime](https://github.com/bytecodealliance/wasmtime) — `brew install wasmtime`
-
-----
-
-## Run
+## Run as a CLI
 
 ```sh
-NAME=Stu ./build_run.fish
+NAME=Stu ./cli.fish
+```
+
+outputs:
+```txt
+Hello, Stu!
+```
+
+----
+
+## Run as an HTTP server
+
+```sh
+NAME=Stu ./http.fish
+```
+
+Then in a new terminal:
+
+```sh
+curl http://localhost:8080
 ```
 
 outputs:
