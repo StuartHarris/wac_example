@@ -36,7 +36,7 @@ world name {
 ```rust
 impl Guest for Component {
     fn name() -> String {
-        environment::get_environment()
+        wasi::cli::environment::get_environment()
             .into_iter()
             .find(|(k, _)| k == "NAME")
             .map(|(_, v)| v)
