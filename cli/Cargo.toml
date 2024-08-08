@@ -4,14 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-wit-bindgen-rt = { version = "0.29.0", features = ["bitflags"] }
-
-[profile.release]
-codegen-units = 1
-opt-level = "s"
-debug = false
-strip = true
-lto = true
+wit-bindgen-rt.workspace = true
 
 [package.metadata.component]
 package = "exmaple:cli"

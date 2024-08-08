@@ -3,7 +3,8 @@ package example:composition;
 let n = new example:name { ... };
 
 let g = new example:greeter {
-  name: n.name
+  name: n.name,
+  ...
 };
 
 let c = new example:cli {

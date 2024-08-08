@@ -1,24 +1,13 @@
 #!/usr/bin/env fish
 
-pushd name
-cargo component build --release
-cd ./target/wasm32-wasip1/release/
-wasi-virt --allow-env=NAME name.wasm --out virt.wasm
-popd
+set DIR target/wasm32-wasip2/release/
 
-pushd greeter
-cargo component build --release
-cd ./target/wasm32-wasip1/release/
-wasi-virt greeter.wasm --out virt.wasm
-popd
+cargo +nightly build --target wasm32-wasip2 --release
 
-pushd cli
-cargo component build --release
-popd
+wac compose example.wac \
+    -o $DIR/output.wasm \
+    --dep example:name=$DIR/name.wasm \
+    --dep example:greeter=$DIR/greeter.wasm \
+    --dep example:cli=$DIR/cli.wasm
 
-wac compose example.wac -o output.wasm \
-    --dep example:name=name/target/wasm32-wasip1/release/virt.wasm \
-    --dep example:greeter=greeter/target/wasm32-wasip1/release/virt.wasm \
-    --dep example:cli=cli/target/wasm32-wasip1/release/cli.wasm
-
-wasmtime run --wasi cli=y --env NAME output.wasm
+wasmtime run --env NAME $DIR/output.wasm
