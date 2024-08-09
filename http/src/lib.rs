@@ -1,5 +1,15 @@
 wit_bindgen::generate!({
-    world: "http",
+    world: "example:http/host",
+    path: [
+        "../wit/deps/io",
+        "../wit/deps/clocks",
+        "../wit/deps/filesystem",
+        "../wit/deps/sockets",
+        "../wit/deps/random",
+        "../wit/deps/cli",
+        "../wit/deps/http",
+        "wit",
+    ],
     generate_all,
 });
 

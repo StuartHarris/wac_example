@@ -7,7 +7,7 @@ let g = new example:greeter {
   ...
 };
 
-let c = new example:http {
+let c = new example:cli {
   greet: g.greet,
   ...
 };
